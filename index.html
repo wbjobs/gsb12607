@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>脚注工坊 · Markdown 引用编辑器</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">¶</span>
+    <strong>脚注工坊</strong>
+    <span class="muted small">Markdown 脚注实时检测</span>
+  </div>
+  <div class="toolbar">
+    <button id="btn-export" class="btn btn-primary btn-sm" title="导出带脚注的 HTML（Ctrl/⌘+S）">导出 HTML</button>
+    <button id="btn-sample" class="btn btn-sm" title="重新载入示例文档">示例文档</button>
+    <button id="btn-clear" class="btn btn-sm btn-ghost" title="清空 IndexedDB 中的已保存状态">清除存储</button>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="editor-pane">
+    <div class="pane-head">
+      <span class="muted small">编辑器</span>
+      <span class="hint small muted">Ctrl/⌘+点击引用跳转 · F2 重命名 · Alt+← 返回</span>
+    </div>
+    <div class="editor-wrap" id="editor-wrap">
+      <pre class="editor-highlight" id="highlight" aria-hidden="true"><code id="highlight-code"></code></pre>
+      <textarea id="editor" spellcheck="false" autocomplete="off" autocapitalize="off"
+        placeholder="在此书写 Markdown，使用 [^标签] 添加脚注引用，用 [^标签]: 内容 定义脚注。"></textarea>
+    </div>
+    <div id="mini-toolbar" class="mini-toolbar hidden"></div>
+  </section>
+
+  <aside class="sidebar">
+    <nav class="tabs" role="tablist">
+      <button class="tab" data-tab="footnotes">脚注 <span id="count-defs" class="tab-count">0</span></button>
+      <button class="tab" data-tab="problems">问题 <span id="count-problems" class="tab-count tab-count-err">0</span></button>
+      <button class="tab" data-tab="graph">关系图</button>
+    </nav>
+    <div class="tab-body" id="tab-body"></div>
+  </aside>
+</main>
+
+<footer class="statusbar">
+  <span id="status-save" class="status-item">未保存</span>
+  <span class="status-sep">·</span>
+  <span id="status-counts" class="status-item"></span>
+  <span class="status-sep">·</span>
+  <span id="status-cursor" class="status-item muted">L1:1</span>
+  <span class="status-spacer"></span>
+  <span id="status-migrate" class="status-item status-warn"></span>
+</footer>
+
+<div id="toast-host" class="toast-host"></div>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
