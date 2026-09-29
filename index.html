@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Markdown 脚注编辑器</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="toolbar">
+  <h1>Markdown 脚注编辑器</h1>
+  <div class="toolbar-actions">
+    <button id="btn-export" class="btn">导出 HTML</button>
+    <button id="btn-clear" class="btn danger">清空存储</button>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="pane editor-pane">
+    <h2>编辑</h2>
+    <textarea id="editor" spellcheck="false"
+      placeholder="在此输入 Markdown，使用 [^id] 引用脚注，[^id]: 定义脚注"></textarea>
+    <div id="status" class="status">就绪</div>
+  </section>
+
+  <aside class="pane side-pane">
+    <h2>问题检测</h2>
+    <ul id="issue-list" class="issue-list"></ul>
+
+    <h2>脚注列表</h2>
+    <ul id="fn-list" class="fn-list"></ul>
+
+    <h2>引用关系图</h2>
+    <canvas id="graph"></canvas>
+    <div class="legend">
+      <span><i class="dot normal"></i>正常</span>
+      <span><i class="dot cyc"></i>循环</span>
+      <span><i class="dot dang"></i>悬空</span>
+      <span><i class="dot dup"></i>重复(粗边)</span>
+    </div>
+  </aside>
+</main>
+
+<div id="modal" class="modal"></div>
+
+<script src="js/parser.js"></script>
+<script src="js/store.js"></script>
+<script src="js/graph.js"></script>
+<script src="js/exporter.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

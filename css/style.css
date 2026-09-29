@@ -1,0 +1,152 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #f4f5f7;
+  color: #1f2328;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: #2d333b;
+  color: #fff;
+}
+.toolbar h1 { font-size: 17px; margin: 0; font-weight: 600; }
+.toolbar-actions { display: flex; gap: 8px; }
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 14px;
+  padding: 14px 20px;
+  height: calc(100vh - 49px);
+}
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; height: auto; }
+}
+
+.pane {
+  background: #fff;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  padding: 12px 14px;
+  overflow: auto;
+}
+.pane h2 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: #6a737d;
+  margin: 14px 0 8px;
+}
+.pane h2:first-child { margin-top: 0; }
+
+.editor-pane { display: flex; flex-direction: column; }
+#editor {
+  flex: 1;
+  min-height: 320px;
+  resize: none;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  padding: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  outline: none;
+}
+#editor:focus { border-color: #4a7ddb; box-shadow: 0 0 0 3px rgba(74,125,219,.15); }
+
+.status {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #6a737d;
+  min-height: 16px;
+}
+
+.btn {
+  border: 1px solid #d0d7de;
+  background: #f6f8fa;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  color: #1f2328;
+}
+.btn:hover { background: #eef1f4; }
+.btn.small { padding: 2px 8px; font-size: 12px; }
+.btn.danger { color: #c93c37; border-color: #e5b6b4; }
+.btn.danger:hover { background: #fdecea; }
+.toolbar .btn { background: #444c56; border-color: #555; color: #fff; }
+.toolbar .btn.danger { color: #ffb3ae; }
+
+.issue-list, .fn-list { list-style: none; margin: 0; padding: 0; }
+.issue {
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  border-left: 3px solid;
+}
+.issue.cyc  { background: #fdecea; border-color: #d32f2f; color: #8c2620; }
+.issue.dup  { background: #fff4e0; border-color: #e6a23c; color: #7a4d0f; }
+.issue.dang { background: #fff8e6; border-color: #d48806; color: #6b4a08; }
+.issue:hover { filter: brightness(.97); }
+.empty { color: #8b949e; font-size: 13px; padding: 4px 0; }
+.empty.ok { color: #1a7f37; }
+
+.fn-item {
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+}
+.fn-head { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.fn-id { font-family: ui-monospace, monospace; font-size: 13px; font-weight: 600; }
+.fn-count { margin-left: auto; font-size: 11px; color: #8b949e; }
+.fn-preview {
+  font-size: 12px;
+  color: #6a737d;
+  margin: 4px 0 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fn-actions { display: flex; gap: 6px; }
+
+.badge { font-size: 10px; padding: 1px 6px; border-radius: 8px; }
+.badge.dup { background: #fff4e0; color: #7a4d0f; }
+.badge.cyc { background: #fdecea; color: #8c2620; }
+
+#graph { width: 100%; display: block; border: 1px solid #e1e4e8; border-radius: 6px; }
+.legend { display: flex; gap: 12px; font-size: 12px; color: #6a737d; margin-top: 6px; flex-wrap: wrap; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; vertical-align: -1px; }
+.dot.normal { background: #e8f0fe; border: 1.5px solid #4a7ddb; }
+.dot.cyc { background: #fdecea; border: 1.5px solid #d32f2f; }
+.dot.dang { background: #fff8e6; border: 1.5px dashed #e6a23c; }
+.dot.dup { background: #e8f0fe; border: 3px solid #4a7ddb; }
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+.modal.open { display: flex; }
+.modal-box {
+  background: #fff;
+  border-radius: 8px;
+  padding: 18px 22px;
+  max-width: 420px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.2);
+}
+.modal-box h3 { margin: 0 0 8px; font-size: 15px; }
+.modal-box p { margin: 0 0 14px; font-size: 13px; color: #444; }
+.modal-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
